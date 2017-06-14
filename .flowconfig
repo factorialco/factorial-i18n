@@ -1,0 +1,5 @@
+[include]
+.*/src/.*
+
+[ignore]
+.*/react/node_modules/.*
