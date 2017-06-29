@@ -82,12 +82,6 @@ describe('i18n', () => {
         expect(i18n.t('common.loading')).toBe('cargando')
       })
 
-      it('throws if the path is not translated in other locales', () => {
-        expect(() => {
-          i18n.t('not_translated')
-        }).toThrowError()
-      })
-
       describe('when it has a interpolation', () => {
         it('throws if the variable is not found', () => {
           expect(() => {
