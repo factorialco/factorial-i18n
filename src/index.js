@@ -7,8 +7,6 @@ import numeralLanguages from './numeralLanguages'
 type Translations = { [key: string]: any }
 type Locales = Array<string>
 
-const DEFAULT_LOCALE = 'en'
-
 export default class I18n {
   translations: Translations
   supportedLocales: Locales
@@ -40,8 +38,7 @@ export default class I18n {
    * Retrieves a key from the translations object.
    */
   getKey (path: string): mixed | string {
-    const result = _.at(this.translations[this.locale], path)[0] ||
-      _.at(this.translations[DEFAULT_LOCALE], path)[0]
+    const result = _.at(this.translations[this.locale], path)[0]
 
     if (process.env.NODE_ENV === 'development') {
       // We check that the translation exists in all current supportedLocales!
