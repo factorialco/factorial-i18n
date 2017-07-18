@@ -50,7 +50,8 @@ describe('i18n', () => {
   let i18n
 
   beforeEach(() => {
-    i18n = new I18n(mockedTranslations, ['en', 'es'])
+    i18n = new I18n()
+    i18n.setTranslations(mockedTranslations)
     process.env.NODE_ENV = 'development'
   })
 
@@ -65,12 +66,6 @@ describe('i18n', () => {
       expect(() => {
         i18n.t('common')
       }).toThrowError()
-    })
-
-    describe('with default locale', () => {
-      it('uses english', () => {
-        expect(i18n.t('common.loading')).toBe('loading')
-      })
     })
 
     describe('with spanish locale', () => {

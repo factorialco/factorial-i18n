@@ -5,17 +5,17 @@ import plural from 'plurals-cldr'
 import numeralLanguages from './numeralLanguages'
 
 type Translations = { [key: string]: any }
-type Locales = Array<string>
 
 export default class I18n {
   translations: Translations
-  supportedLocales: Locales
   locale: string
 
-  constructor (translations: Translations, supportedLocales: Locales) {
+  constructor () {
+    this.translations = {}
+  }
+
+  setTranslations (translations: Translations): void {
     this.translations = translations
-    this.supportedLocales = supportedLocales
-    this.locale = 'en'
   }
 
   setLocale (locale: string): void {
@@ -38,18 +38,7 @@ export default class I18n {
    * Retrieves a key from the translations object.
    */
   getKey (path: string): mixed | string {
-    const result = _.at(this.translations[this.locale], path)[0]
-
-    if (process.env.NODE_ENV === 'development') {
-      // We check that the translation exists in all current supportedLocales!
-      this.supportedLocales.forEach(locale => {
-        if (_.at(this.translations[locale], path)[0]) return
-
-        console.warn(`Key not found "${path}" with the locale "${locale}"`)
-      })
-    }
-
-    return result
+    return _.at(this.translations[this.locale], path)[0]
   }
 
   /**
