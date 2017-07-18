@@ -77,7 +77,7 @@ export default class I18n {
           `Translation "${path}" has a missing interpolation value "${subst}"`
         )
       }
-      return _.escape(String(opts[subst]))
+      return String(opts[subst])
     })
   }
 
