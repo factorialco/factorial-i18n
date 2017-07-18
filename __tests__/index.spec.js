@@ -89,9 +89,9 @@ describe('i18n', () => {
           }).toThrowError()
         })
 
-        it('interpolates and escapes', () => {
+        it('interpolates and do not escapes', () => {
           expect(i18n.t('hello', { name: '<b>coca-cola</b>' })).toBe(
-            'hola &lt;b&gt;coca-cola&lt;/b&gt;'
+            'hola <b>coca-cola</b>'
           )
         })
       })
