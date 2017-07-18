@@ -27,8 +27,9 @@ const translations = {
   }
 }
 
-const i18n = new I18n(translation, ['es', 'en'])
+const i18n = new I18n()
 
+i18n.setTranslations(translations)
 i18n.setLocale('es')
 i18n.t('common.hello') // => Hola
 i18n.tp('common.beers', { count: 0 }) // => 0 cervezas
