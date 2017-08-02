@@ -78,10 +78,8 @@ describe('i18n', () => {
       })
 
       describe('when it has a interpolation', () => {
-        it('throws if the variable is not found', () => {
-          expect(() => {
-            i18n.t('hello')
-          }).toThrowError()
+        it('does not thhrow if the variable is not found', () => {
+          expect(i18n.t('hello')).toBe('hola ')
         })
 
         it('interpolates and do not escapes', () => {

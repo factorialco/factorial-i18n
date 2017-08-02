@@ -1,5 +1,9 @@
 # Changelog
 
+## `0.1.0`
+
+Relaxed a bit interpolations.
+
 ## `0.0.3`
 
 Relaxed a bit the other locale warning.

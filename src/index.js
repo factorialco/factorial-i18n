@@ -58,11 +58,7 @@ export default class I18n {
     const MATCH = /%\{([^}]+)\}/g
 
     return value.replace(MATCH, (match, subst) => {
-      if (!opts) {
-        throw new Error(
-          `Translation "${path}" has a missing interpolation value "${subst}"`
-        )
-      }
+      if (!opts) return ''
       return String(opts[subst])
     })
   }
