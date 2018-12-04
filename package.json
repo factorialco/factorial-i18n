@@ -4,7 +4,7 @@
   "description": "Factorial i18n library",
   "repository": {
     "type": "git",
-    "url": "git@github.com:factorial/factorial-i18n.git"
+    "url": "git@github.com:factorialco/factorial-i18n.git"
   },
   "license": "MIT",
   "jest": {
