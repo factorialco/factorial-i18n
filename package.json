@@ -1,6 +1,6 @@
 {
   "name": "factorial-i18n",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Factorial i18n library",
   "repository": {
     "type": "git",
@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "numeral": "2.0.6",
     "plurals-cldr": "1.0.3"
   },
   "devDependencies": {

@@ -1,8 +1,6 @@
 // @flow
 import _ from 'lodash'
-import numeral from 'numeral'
 import plural from 'plurals-cldr'
-import numeralLanguages from './numeralLanguages'
 
 type Translations = { [key: string]: any }
 
@@ -20,18 +18,16 @@ export default class I18n {
 
   setLocale (locale: string): void {
     this.locale = locale
-
-    if (numeralLanguages[locale]) {
-      numeral.locales[locale] = numeralLanguages[locale]
-      numeral.locale(locale)
-    }
   }
 
   /**
-   * Leverages `numeral` for number formatting
+   * Leverages Intl.NumberFormat for currency formatting
    */
-  formatNumber (format: string, number: number): string {
-    return numeral(number).format(format)
+  formatNumber (number: number, style?: string, currency?: string): string {
+    const params = {}
+    if (style) params.style = style
+    if (currency) params.currency = currency
+    return new global.Intl.NumberFormat(this.locale, { style: style, currency: currency }).format(number)
   }
 
   /**
