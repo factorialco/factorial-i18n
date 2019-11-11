@@ -1,5 +1,11 @@
 # Changelog
 
+## `0.2.0`
+
+Updated `formatNumber` function to handle currency formatting.
+`formatNumber` no longer takes `format` as an argument.
+Switched to typescript + rollup like all the other factorial packages.
+
 ## `0.1.0`
 
 Relaxed a bit interpolations.

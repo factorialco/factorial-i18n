@@ -1,6 +1,6 @@
 module.exports = {
-  parser: 'babel-eslint',
-  plugins: [ 'flowtype' ],
+  parser: '@typescript-eslint/parser',
+  plugins: [ '@typescript-eslint' ],
 
   env: {
     browser: true,
@@ -13,10 +13,14 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true
+    }
   },
 
-  extends: [
-    'plugin:flowtype/recommended',
-    'standard'
-  ]
+  rules: {
+    'object-curly-spacing': ['warn', 'always'],
+    'prefer-promise-reject-errors': 'off',
+    'no-duplicate-imports': 'off'
+  }
 };

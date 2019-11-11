@@ -92,9 +92,27 @@ describe('i18n', () => {
   })
 
   describe('formatNumber', () => {
-    it('formats the number leveraging numeral', () => {
-      expect(i18n.formatNumber('0%', 0.2)).toBe('20%')
-      expect(i18n.formatNumber('$0.0', 0.2)).toBe('$0,2')
+    it('formats percentages', () => {
+      expect(i18n.formatNumber(0.2, 'percent')).toBe('20%')
+    })
+    it('formats the correct currency without locale code', () => {
+      expect(i18n.formatNumber(1500, 'currency', 'GBP')).toBe('£1,500.00')
+    })
+    it('formats number with just a number', () => {
+      expect(i18n.formatNumber(1500)).toBe('1,500')
+    })
+    it('formats currency with setLocale of language and country', () => {
+      i18n.setLocale('de-DE')
+      const spacer = String.fromCharCode(160)
+      expect(i18n.formatNumber(123456.789, 'currency', 'EUR')).toBe('123.456,79' + spacer + '€')
+    })
+    it('formats currency with setLocale of just country', () => {
+      i18n.setLocale('GB')
+      expect(i18n.formatNumber(1500, 'currency', 'GBP')).toBe('£1,500.00')
+    })
+    it('formats currency with setLocale of just language', () => {
+      i18n.setLocale('en')
+      expect(i18n.formatNumber(1500, 'currency', 'GBP')).toBe('£1,500.00')
     })
   })
 
