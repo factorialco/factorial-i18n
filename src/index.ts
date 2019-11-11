@@ -1,18 +1,20 @@
-// @flow
-import _ from 'lodash'
+const at = require('lodash.at')
 import plural from 'plurals-cldr'
 
-type Translations = { [key: string]: any }
+type TranslationValue = string | TranslationObject;
+interface TranslationObject {
+  [x: string]: TranslationValue;
+}
 
 export default class I18n {
-  translations: Translations
+  translations: TranslationObject
   locale: string
 
   constructor () {
     this.translations = {}
   }
 
-  setTranslations (translations: Translations): void {
+  setTranslations (translations: TranslationObject): void {
     this.translations = translations
   }
 
@@ -23,18 +25,18 @@ export default class I18n {
   /**
    * Leverages Intl.NumberFormat for currency formatting
    */
-  formatNumber (number: number, style?: string, currency?: string): string {
-    const params = {}
-    if (style) params.style = style
-    if (currency) params.currency = currency
-    return new global.Intl.NumberFormat(this.locale, { style: style, currency: currency }).format(number)
+  formatNumber (num: number, style?: string, currency?: string): string {
+    return new global.Intl.NumberFormat(
+      this.locale,
+      { style, currency }
+    ).format(num)
   }
 
   /**
    * Retrieves a key from the translations object.
    */
-  getKey (path: string): mixed | string {
-    return _.at(this.translations[this.locale], path)[0]
+  getKey (path: string): TranslationObject | string {
+    return at(this.translations[this.locale], path)[0]
   }
 
   /**
@@ -46,7 +48,7 @@ export default class I18n {
    * t('foo.bar') => 'Bar'
    * t('zemba.fleiba', {num: 3 }) => 'Zemba 3 Fleiba!'
    */
-  t (path: string, opts?: { [key: string]: mixed }): string {
+  t (path: string, opts?: { [key: string]: any }): string {
     const value = this.getKey(path)
     if (typeof value !== 'string') {
       throw new Error(`Key "${path}"is not a leaf`)
@@ -67,7 +69,7 @@ export default class I18n {
    *
    * tp('beer', { count: 3 }) => '3 beers'
    */
-  tp (path: string, opts: { [key: string]: mixed }): string {
+  tp (path: string, opts: { [key: string]: any }): string {
     const num = opts.count
 
     if (typeof num !== 'number') {
@@ -88,7 +90,7 @@ export default class I18n {
    *
    *   tx('fleiba.zemba', user.get('role'))
    */
-  tx (path: string, variable: string, opts?: { [key: string]: mixed }): string {
+  tx (path: string, variable: string, opts?: { [key: string]: any }): string {
     const newPath = `${path}.${variable}`
     return this.t(newPath, opts)
   }
