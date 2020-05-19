@@ -1,4 +1,5 @@
-const at = require('lodash.at')
+const at = require('lodash/at')
+const isEmpty = require('lodash/isEmpty')
 import plural from 'plurals-cldr'
 
 type TranslationValue = string | TranslationObject;
@@ -36,6 +37,10 @@ export default class I18n {
    * Retrieves a key from the translations object.
    */
   getKey (path: string): TranslationObject | string {
+    if (isEmpty(this.translations)) {
+      throw new Error('Translations have not been loaded')
+    }
+
     return at(this.translations[this.locale], path)[0]
   }
 
@@ -51,7 +56,7 @@ export default class I18n {
   t (path: string, opts?: { [key: string]: any }): string {
     const value = this.getKey(path)
     if (typeof value !== 'string') {
-      throw new Error(`Key "${path}"is not a leaf`)
+      throw new Error(`Key "${path}" is not a leaf`)
     }
     const MATCH = /%\{([^}]+)\}/g
 

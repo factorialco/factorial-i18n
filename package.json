@@ -9,7 +9,7 @@
   "license": "MIT",
   "jest": { "preset": "ts-jest" },
   "dependencies": {
-    "lodash.at": "4.6.0",
+    "lodash": "^4.17.15",
     "plurals-cldr": "1.0.3"
   },
   "devDependencies": {
