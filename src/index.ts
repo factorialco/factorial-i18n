@@ -27,7 +27,7 @@ export default class I18n {
    * Leverages Intl.NumberFormat for currency formatting
    */
   formatNumber (num: number, style?: string, currency?: string): string {
-    return new global.Intl.NumberFormat(
+    return new Intl.NumberFormat(
       this.locale,
       { style, currency }
     ).format(num)
