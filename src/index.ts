@@ -78,7 +78,7 @@ export default class I18n {
     const num = opts.count
 
     if (typeof num !== 'number') {
-      throw new Error('You must have a `count` property')
+      throw new Error('You must have a `count` property and it must be a non-null number')
     }
 
     const form = plural(this.locale, num)
