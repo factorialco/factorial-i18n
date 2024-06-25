@@ -82,7 +82,10 @@ export default class I18n {
     }
 
     const form = plural(this.locale, num)
-    const pluralPath = `${path}.${form}`
+    let pluralPath = `${path}.${form}`
+    if (num === 0 && this.getKey(`${path}.zero`) !== undefined) {
+      pluralPath = `${path}.zero`
+    }
 
     return this.t(pluralPath, opts)
   }
