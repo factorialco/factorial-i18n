@@ -23,6 +23,7 @@ const mockedTranslations = {
   es: {
     hello: 'hola %{name}',
     beers: {
+      zero: 'sin cervezas!',
       one: '%{count} cerveza',
       other: '%{count} cervezas'
     },
@@ -152,7 +153,7 @@ describe('i18n', () => {
       })
 
       it('uses pluralizations correctly otherwise', () => {
-        expect(i18n.tp('beers', { count: 0 })).toBe('0 cervezas')
+        expect(i18n.tp('beers', { count: 0 })).toBe('sin cervezas!')
         expect(i18n.tp('beers', { count: 1 })).toBe('1 cerveza')
         expect(i18n.tp('beers', { count: 2 })).toBe('2 cervezas')
       })

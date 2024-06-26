@@ -10,7 +10,7 @@
   "jest": { "preset": "ts-jest" },
   "dependencies": {
     "lodash": "^4.17.15",
-    "plurals-cldr": "1.0.3"
+    "plurals-cldr": "2.0.1"
   },
   "devDependencies": {
     "@types/jest": "24.0.13",
