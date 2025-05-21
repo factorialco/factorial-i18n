@@ -50,6 +50,11 @@ const mockedTranslations = {
   },
   ru: {
     colas: {},
+    books: {
+      one: '%{count} книга',
+      few: '%{count} книги', 
+      many: '%{count} книг',
+    },
     beers: {
       one: '%{count} пива',
       other: '%{count} пива'
@@ -115,6 +120,13 @@ describe('i18n', () => {
 
       it('falls back to english if the path is not found', () => {
         expect(i18n.tp('colas', { count: 0 })).toBe('0 colas')
+      })
+
+      it('gets the correct plural form', () => {
+        expect(i18n.tp('books', { count: 0 })).toBe('0 книг')
+        expect(i18n.tp('books', { count: 1 })).toBe('1 книга')
+        expect(i18n.tp('books', { count: 2 })).toBe('2 книги')
+        expect(i18n.tp('books', { count: 5 })).toBe('5 книг')
       })
     })
   })
