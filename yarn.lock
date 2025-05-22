@@ -2970,9 +2970,9 @@ pkg-dir@^3.0.0:
   dependencies:
     find-up "^3.0.0"
 
-plurals-cldr@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/plurals-cldr/-/plurals-cldr-1.0.3.tgz#5c64c464bc173b530b148893eb5492ef5912d827"
+plurals-cldr@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/plurals-cldr/-/plurals-cldr-2.0.1.tgz#cfd157e7e0f3b6ce9dc9a47bbd7b7bf384db8c41"
 
 pn@^1.1.0:
   version "1.1.0"
