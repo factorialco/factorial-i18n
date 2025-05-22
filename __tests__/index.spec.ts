@@ -8,6 +8,10 @@ const mockedTranslations = {
       one: '%{count} beer',
       other: '%{count} beers'
     },
+    colas: {
+      one: '%{count} cola',
+      other: '%{count} colas',
+    },
     role: {
       admin: 'admin',
       basic: 'basic'
@@ -42,6 +46,18 @@ const mockedTranslations = {
     beers: {
       one: '%{count} bière',
       other: '%{count} bières'
+    }
+  },
+  ru: {
+    colas: {},
+    books: {
+      one: '%{count} книга',
+      few: '%{count} книги', 
+      many: '%{count} книг',
+    },
+    beers: {
+      one: '%{count} пива',
+      other: '%{count} пива'
     }
   }
 }
@@ -87,6 +103,30 @@ describe('i18n', () => {
             'hola <b>coca-cola</b>'
           )
         })
+      })
+    })
+  })
+
+  describe('with russian locale', () => {
+    beforeEach(() => {
+      i18n.setLocale('ru')
+      i18n.setLocaleFallback('en')
+    })
+
+    describe('when we want to express complex forms of pluralization', () => {
+      it('falls back to other if many or few is not found', () => {
+        expect(i18n.tp('beers', { count: 0 })).toBe('0 пива')
+      })
+
+      it('falls back to english if the path is not found', () => {
+        expect(i18n.tp('colas', { count: 0 })).toBe('0 colas')
+      })
+
+      it('gets the correct plural form', () => {
+        expect(i18n.tp('books', { count: 0 })).toBe('0 книг')
+        expect(i18n.tp('books', { count: 1 })).toBe('1 книга')
+        expect(i18n.tp('books', { count: 2 })).toBe('2 книги')
+        expect(i18n.tp('books', { count: 5 })).toBe('5 книг')
       })
     })
   })
