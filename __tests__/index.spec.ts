@@ -2,65 +2,65 @@ import I18n from '../src'
 
 const mockedTranslations = {
   en: {
-    hello: 'hello %{name}',
-    not_translated: 'translate me!',
+    hello: "hello %{name}",
+    not_translated: "translate me!",
     beers: {
-      one: '%{count} beer',
-      other: '%{count} beers'
+      one: "%{count} beer",
+      other: "%{count} beers",
     },
     colas: {
-      one: '%{count} cola',
-      other: '%{count} colas',
+      one: "%{count} cola",
+      other: "%{count} colas",
     },
     role: {
-      admin: 'admin',
-      basic: 'basic'
+      admin: "admin",
+      basic: "basic",
     },
     current: {
-      another: 'other',
-      current: 'current'
+      another: "other",
+      current: "current",
     },
     common: {
-      loading: 'loading'
-    }
+      loading: "loading",
+    },
   },
   es: {
-    hello: 'hola %{name}',
+    hello: "hola %{name}",
     beers: {
-      one: '%{count} cerveza',
-      other: '%{count} cervezas'
+      one: "%{count} cerveza",
+      other: "%{count} cervezas",
     },
     role: {
-      admin: 'administrador',
-      basic: 'básico'
+      admin: "administrador",
+      basic: "básico",
     },
     current: {
-      another: 'eres tu?',
-      current: 'soy yo?'
+      another: "eres tu?",
+      current: "soy yo?",
     },
     common: {
-      loading: 'cargando'
-    }
+      loading: "cargando",
+    },
   },
   fr: {
     beers: {
-      one: '%{count} bière',
-      other: '%{count} bières'
-    }
+      one: "%{count} bière",
+      other: "%{count} bières",
+    },
   },
   ru: {
     colas: {},
     books: {
-      one: '%{count} книга',
-      few: '%{count} книги', 
-      many: '%{count} книг',
+      one: "%{count} книга",
+      few: "%{count} книги",
+      many: "%{count} книг",
     },
     beers: {
-      one: '%{count} пива',
-      other: '%{count} пива'
-    }
-  }
-}
+      one: "%{count} пива",
+      other: "%{count} пива",
+    },
+  },
+};
 
 describe('i18n', () => {
   let i18n
@@ -132,6 +132,9 @@ describe('i18n', () => {
   })
 
   describe('formatNumber', () => {
+    beforeEach(() => {
+      i18n.setLocale("es");
+    });
     const spacer = String.fromCharCode(160)
 
     it('formats percentages', () => {
@@ -148,8 +151,10 @@ describe('i18n', () => {
       expect(i18n.formatNumber(123456.789, 'currency', 'EUR')).toBe('123.456,79' + spacer + '€')
     })
     it('formats currency with setLocale of just country', () => {
-      i18n.setLocale('GB')
-      expect(i18n.formatNumber(1500, 'currency', 'GBP')).toBe('1500,00' + spacer + 'GBP')
+      i18n.setLocale("UK");
+      expect(i18n.formatNumber(1500, "currency", "GBP")).toBe(
+        "1" + spacer + "500,00" + spacer + "GBP"
+      );
     })
     it('formats currency with setLocale of just language', () => {
       i18n.setLocale('en')
