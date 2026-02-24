@@ -10,6 +10,7 @@ interface TranslationObject {
 export default class I18n {
   translations: TranslationObject
   locale: string
+  localeFallback: string
 
   constructor () {
     this.translations = {}
@@ -21,6 +22,10 @@ export default class I18n {
 
   setLocale (locale: string): void {
     this.locale = locale
+  }
+ 
+  setLocaleFallback(locale: string): void {
+    this.localeFallback = locale;
   }
 
   /**
@@ -40,8 +45,10 @@ export default class I18n {
     if (isEmpty(this.translations)) {
       throw new Error('Translations have not been loaded')
     }
+   
+    const result = at(this.translations[this.locale], path)[0] || at(this.translations[this.localeFallback], path)[0]
 
-    return at(this.translations[this.locale], path)[0]
+    return result
   }
 
   /**
@@ -87,7 +94,13 @@ export default class I18n {
       pluralPath = `${path}.zero`
     }
 
-    return this.t(pluralPath, opts)
+    try {
+      return this.t(pluralPath, opts)
+    } catch (e) {
+      form = plural(this.localeFallback, num)
+      pluralPath = `${path}.${form}`
+      return this.t(pluralPath, opts)
+    }
   }
 
   /**

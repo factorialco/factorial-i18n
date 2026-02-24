@@ -1,6 +1,6 @@
 {
   "name": "factorial-i18n",
-  "version": "0.4.1",
+  "version": "0.5.2",
   "description": "Factorial i18n library",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "jest": { "preset": "ts-jest" },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "plurals-cldr": "2.0.1"
   },
   "devDependencies": {
@@ -30,13 +30,13 @@
   },
   "main": "lib",
   "scripts": {
-    "build": "yarn build:clean && rollup --config",
+    "build": "npm run build:clean && rollup --config",
     "build:clean": "rimraf lib",
     "jest": "NODE_PATH=src jest --no-cache",
     "lint": "eslint --ext .ts --cache src/ __tests__/",
-    "prepublish": "yarn build",
-    "prepush": "yarn test",
-    "test": "yarn lint && yarn jest",
+    "prepare": "npm run build",
+    "prepush": "npm test",
+    "test": "npm run lint && npm run jest",
     "watch": "rollup --config -w",
     "lint-staged": {
       "linters": {

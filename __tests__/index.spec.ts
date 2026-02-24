@@ -2,50 +2,66 @@ import I18n from '../src'
 
 const mockedTranslations = {
   en: {
-    hello: 'hello %{name}',
-    not_translated: 'translate me!',
+    hello: "hello %{name}",
+    not_translated: "translate me!",
     beers: {
-      one: '%{count} beer',
-      other: '%{count} beers'
+      one: "%{count} beer",
+      other: "%{count} beers",
+    },
+    colas: {
+      one: "%{count} cola",
+      other: "%{count} colas",
     },
     role: {
-      admin: 'admin',
-      basic: 'basic'
+      admin: "admin",
+      basic: "basic",
     },
     current: {
-      another: 'other',
-      current: 'current'
+      another: "other",
+      current: "current",
     },
     common: {
-      loading: 'loading'
-    }
+      loading: "loading",
+    },
   },
   es: {
-    hello: 'hola %{name}',
+    hello: "hola %{name}",
     beers: {
       zero: 'sin cervezas!',
       one: '%{count} cerveza',
       other: '%{count} cervezas'
     },
     role: {
-      admin: 'administrador',
-      basic: 'básico'
+      admin: "administrador",
+      basic: "básico",
     },
     current: {
-      another: 'eres tu?',
-      current: 'soy yo?'
+      another: "eres tu?",
+      current: "soy yo?",
     },
     common: {
-      loading: 'cargando'
-    }
+      loading: "cargando",
+    },
   },
   fr: {
     beers: {
-      one: '%{count} bière',
-      other: '%{count} bières'
-    }
-  }
-}
+      one: "%{count} bière",
+      other: "%{count} bières",
+    },
+  },
+  ru: {
+    colas: {},
+    books: {
+      one: "%{count} книга",
+      few: "%{count} книги",
+      many: "%{count} книг",
+    },
+    beers: {
+      one: "%{count} пива",
+      other: "%{count} пива",
+    },
+  },
+};
 
 describe('i18n', () => {
   let i18n
@@ -92,7 +108,34 @@ describe('i18n', () => {
     })
   })
 
+  describe('with russian locale', () => {
+    beforeEach(() => {
+      i18n.setLocale('ru')
+      i18n.setLocaleFallback('en')
+    })
+
+    describe('when we want to express complex forms of pluralization', () => {
+      it('falls back to other if many or few is not found', () => {
+        expect(i18n.tp('beers', { count: 0 })).toBe('0 пива')
+      })
+
+      it('falls back to english if the path is not found', () => {
+        expect(i18n.tp('colas', { count: 0 })).toBe('0 colas')
+      })
+
+      it('gets the correct plural form', () => {
+        expect(i18n.tp('books', { count: 0 })).toBe('0 книг')
+        expect(i18n.tp('books', { count: 1 })).toBe('1 книга')
+        expect(i18n.tp('books', { count: 2 })).toBe('2 книги')
+        expect(i18n.tp('books', { count: 5 })).toBe('5 книг')
+      })
+    })
+  })
+
   describe('formatNumber', () => {
+    beforeEach(() => {
+      i18n.setLocale("es");
+    });
     const spacer = String.fromCharCode(160)
 
     it('formats percentages', () => {
@@ -109,8 +152,10 @@ describe('i18n', () => {
       expect(i18n.formatNumber(123456.789, 'currency', 'EUR')).toBe('123.456,79' + spacer + '€')
     })
     it('formats currency with setLocale of just country', () => {
-      i18n.setLocale('GB')
-      expect(i18n.formatNumber(1500, 'currency', 'GBP')).toBe('1500,00' + spacer + 'GBP')
+      i18n.setLocale("UK");
+      expect(i18n.formatNumber(1500, "currency", "GBP")).toBe(
+        "1" + spacer + "500,00" + spacer + "GBP"
+      );
     })
     it('formats currency with setLocale of just language', () => {
       i18n.setLocale('en')
