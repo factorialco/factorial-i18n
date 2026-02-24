@@ -88,7 +88,7 @@ export default class I18n {
       throw new Error('You must have a `count` property and it must be a non-null number')
     }
 
-    const form = plural(this.locale, num)
+    let form = plural(this.locale, num)
     let pluralPath = `${path}.${form}`
     if (num === 0 && this.getKey(`${path}.zero`) !== undefined) {
       pluralPath = `${path}.zero`
